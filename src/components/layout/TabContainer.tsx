@@ -20,6 +20,10 @@ export function TabContainer({
   onTabChange,
   children,
 }: TabContainerProps) {
+  if (visibleTabs.length === 0) {
+    return <Box sx={styles.content}>{children}</Box>;
+  }
+
   const activeIndex = visibleTabs.findIndex((tab) => tab.id === activeTab);
 
   return (

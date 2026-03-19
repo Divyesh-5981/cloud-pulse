@@ -40,7 +40,19 @@ export const overlay = {
   },
 } as const;
 
-/* ─── Status / severity / incident colors ─── */
+/**
+ * Status / severity / incident colors
+ *
+ * Accessibility note:
+ * These colors are used as background or text indicators. When used as text on
+ * a white (#fff) background, ensure a minimum 4.5:1 contrast ratio (WCAG AA).
+ *   - severityColors.Medium (#ff9800) has ~3.0:1 on white — pair with a dark
+ *     background or use as a background with dark text instead.
+ *   - statusColors.Healthy (#2e7d32) ≈ 4.8:1 on white — passes AA.
+ *   - statusColors.Down / severityColors.Critical (#d32f2f) ≈ 5.6:1 — passes AA.
+ *
+ * TODO: Add automated contrast-ratio checks when these tokens are consumed.
+ */
 export const statusColors = {
   Healthy: '#2e7d32',
   Degraded: '#ed6c02',

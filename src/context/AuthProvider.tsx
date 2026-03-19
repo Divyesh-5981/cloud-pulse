@@ -10,7 +10,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [role, setRole] = useState<Role>(ROLES.ADMIN);
+  const [role, setRole] = useState<Role>(ROLES.VIEWER);
 
   const value = useMemo(
     () => ({
