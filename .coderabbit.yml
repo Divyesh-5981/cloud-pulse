@@ -2,6 +2,11 @@
 # Docs: https://docs.coderabbit.ai/guides/configure-coderabbit
 language: en-US
 reviews:
+  auto_review:
+    enabled: true
+    base_branches:
+      - main
+      - develop
   profile: assertive
   request_changes_workflow: true
   high_level_summary: true
