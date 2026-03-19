@@ -1,0 +1,23 @@
+# CodeRabbit Configuration
+# Docs: https://docs.coderabbit.ai/guides/configure-coderabbit
+language: en-US
+reviews:
+  auto_review:
+    enabled: true
+    base_branches:
+      - main
+      - develop
+  profile: assertive
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  path_instructions:
+    - path: 'src/config/**'
+      instructions: 'This is the config-driven UI layer. Ensure configs are type-safe and extensible.'
+    - path: 'src/features/**'
+      instructions: 'Feature modules should be self-contained. No cross-feature imports.'
+    - path: 'src/graphql/**'
+      instructions: 'GraphQL layer. Ensure queries/mutations are properly typed.'
+chat:
+  auto_reply: true
