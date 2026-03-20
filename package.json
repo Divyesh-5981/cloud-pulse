@@ -32,7 +32,8 @@
     "date-fns": "4.1.0",
     "graphql": "16.13.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-error-boundary": "6.1.1"
   },
   "devDependencies": {
     "@eslint/js": "9.39.4",

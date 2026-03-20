@@ -25,3 +25,11 @@ export const TABS_CONFIG: TabConfig[] = [
     roles: [ROLES.ADMIN, ROLES.OPERATOR],
   },
 ];
+
+const ROLES_IN_CONFIG = new Set(TABS_CONFIG.flatMap((tab) => tab.roles));
+
+export function assertTabCoverage(role: string): void {
+  if (!ROLES_IN_CONFIG.has(role as Role)) {
+    throw new Error(`No tabs configured for role "${role}".`);
+  }
+}

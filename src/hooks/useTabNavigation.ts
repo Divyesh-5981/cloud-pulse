@@ -9,33 +9,26 @@ interface UseTabNavigationReturn {
   onTabChange: (tabId: TabId) => void;
 }
 
-const firstTab = TABS_CONFIG[0];
-if (!firstTab) {
-  throw new Error('TABS_CONFIG must contain at least one tab');
-}
-const DEFAULT_TAB_ID = firstTab.id;
-
 export function useTabNavigation(): UseTabNavigationReturn {
   const { role } = useAuth();
-  const [selectedTab, setSelectedTab] = useState<TabId>(DEFAULT_TAB_ID);
 
-  const visibleTabs = useMemo(() => {
-    const tabs = TABS_CONFIG.filter((tab) => tab.roles.includes(role));
+  const visibleTabs = useMemo(
+    () => TABS_CONFIG.filter((tab) => tab.roles.includes(role)),
+    [role],
+  );
 
-    if (tabs.length === 0) {
-      throw new Error(`No tabs configured for role: ${role}`);
-    }
-
-    return tabs;
-  }, [role]);
+  const [selectedTab, setSelectedTab] = useState<TabId>(visibleTabs[0].id);
 
   const activeTab = visibleTabs.some((tab) => tab.id === selectedTab)
     ? selectedTab
     : visibleTabs[0].id;
 
-  const onTabChange = useCallback((tabId: TabId) => {
-    setSelectedTab(tabId);
-  }, []);
+  const onTabChange = useCallback(
+    (tabId: TabId) => {
+      if (visibleTabs.some((tab) => tab.id === tabId)) setSelectedTab(tabId);
+    },
+    [visibleTabs],
+  );
 
   return { visibleTabs, activeTab, onTabChange };
 }
