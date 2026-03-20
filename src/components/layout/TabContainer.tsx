@@ -20,25 +20,16 @@ export function TabContainer({
   onTabChange,
   children,
 }: TabContainerProps) {
-  if (visibleTabs.length === 0) {
-    return <Box sx={styles.content}>{children}</Box>;
-  }
-
-  const activeIndex = visibleTabs.findIndex((tab) => tab.id === activeTab);
-
   return (
     <Box>
       <Box sx={styles.tabBar}>
         <Tabs
-          value={activeIndex === -1 ? 0 : activeIndex}
+          value={activeTab}
+          onChange={(_, newValue: TabId) => onTabChange(newValue)}
           sx={styles.tabs}
-          onChange={(_, newIndex) => {
-            const tab = visibleTabs[newIndex];
-            if (tab) onTabChange(tab.id);
-          }}
         >
-          {visibleTabs.map((tab) => (
-            <Tab key={tab.id} label={tab.label} />
+          {visibleTabs.map(({ id, label }) => (
+            <Tab key={id} value={id} label={label} />
           ))}
         </Tabs>
       </Box>

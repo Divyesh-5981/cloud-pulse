@@ -72,6 +72,13 @@ export const incidentStatusColors = {
   Resolved: '#2e7d32',
 } as const;
 
+/* ─── Error / feedback ─── */
+export const errorColors = {
+  main: '#d32f2f',
+  surface: '#fef2f2',
+  detailsBg: '#f8f9fa',
+} as const;
+
 /* ─── Elevation / shadows ─── */
 export const shadow = {
   header: '0 1px 3px rgba(0,0,0,0.24), 0 4px 12px rgba(0,0,0,0.16)',

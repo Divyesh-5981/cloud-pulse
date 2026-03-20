@@ -43,24 +43,44 @@ export const styles = {
     gap: { xs: 0.5, sm: 1, md: 1.5 },
   },
 
-  roleSelect: {
+  userInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+  },
+
+  avatar: {
+    width: 32,
+    height: 32,
+    fontSize: '0.75rem',
+    fontWeight: 600,
+    bgcolor: palette.secondary,
     color: overlay.white.high,
-    fontSize: '0.85rem',
-    height: sizing.controlHeight,
-    borderRadius: radius.md,
-    '.MuiOutlinedInput-notchedOutline': {
-      borderColor: overlay.white.low,
-      borderRadius: radius.md,
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: overlay.white.medium,
-    },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: overlay.white.high,
-    },
-    '.MuiSvgIcon-root': {
-      color: overlay.white.medium,
-      fontSize: 18,
+  },
+
+  userText: {
+    display: { xs: 'none', sm: 'flex' },
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: 0.25,
+  },
+
+  userName: {
+    color: overlay.white.high,
+    fontSize: '0.8rem',
+    fontWeight: 600,
+    lineHeight: 1.2,
+  },
+
+  roleBadge: {
+    height: 18,
+    fontSize: '0.65rem',
+    fontWeight: 600,
+    bgcolor: overlay.white.faint,
+    color: overlay.white.medium,
+    borderRadius: radius.sm,
+    '& .MuiChip-label': {
+      px: 0.75,
     },
   },
 
