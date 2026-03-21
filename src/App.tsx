@@ -2,12 +2,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useCallback, useState } from 'react';
 
-import { Header } from '@/components/layout/Header';
-import { TabContainer } from '@/components/layout/TabContainer';
+import Header from '@/components/layout/Header';
+import TabContainer from '@/components/layout/TabContainer';
 import { TAB_IDS } from '@/config/tabs.config';
 import { useTabNavigation } from '@/hooks/useTabNavigation';
 
 import { styles } from './App.styles';
+import ServiceGrid from './features/services/components/ServiceGrid';
 
 function App() {
   const { visibleTabs, activeTab, onTabChange } = useTabNavigation();
@@ -33,11 +34,7 @@ function App() {
         activeTab={activeTab}
         onTabChange={onTabChange}
       >
-        {activeTab === TAB_IDS.SERVICES && (
-          <Typography color="text.secondary">
-            Services tab — cards will go here
-          </Typography>
-        )}
+        {activeTab === TAB_IDS.SERVICES && <ServiceGrid />}
         {activeTab === TAB_IDS.INCIDENTS && (
           <Typography color="text.secondary">
             Incidents tab — table will go here

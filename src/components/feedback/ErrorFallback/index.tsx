@@ -18,7 +18,7 @@ function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
-export function ErrorFallback({
+export default function ErrorFallback({
   error,
   resetErrorBoundary,
 }: ErrorFallbackProps) {

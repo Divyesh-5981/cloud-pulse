@@ -1,6 +1,6 @@
 import { type SxProps, type Theme } from '@mui/material/styles';
 
-import { shadow } from '@/app/tokens';
+import { shadow } from '@/shared/tokens';
 
 export const styles = {
   tabBar: {

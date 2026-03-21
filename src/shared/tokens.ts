@@ -5,10 +5,10 @@
  * Naming: category.variant (e.g., palette.primary.main, overlay.white.high)
  */
 
-/* ─── App metadata ─── */
+/* App metadata */
 export const APP_TITLE = 'Cloud Pulse';
 
-/* ─── Brand palette ─── */
+/* Brand palette */
 export const palette = {
   primary: {
     dark: '#0f1620',
@@ -30,7 +30,7 @@ export const palette = {
   },
 } as const;
 
-/* ─── White overlays (for dark backgrounds) ─── */
+/* White overlays (for dark backgrounds) */
 export const overlay = {
   white: {
     high: 'rgba(255,255,255,0.95)',
@@ -40,23 +40,17 @@ export const overlay = {
   },
 } as const;
 
-/**
- * Status / severity / incident colors
- *
- * Accessibility note:
- * These colors are used as background or text indicators. When used as text on
- * a white (#fff) background, ensure a minimum 4.5:1 contrast ratio (WCAG AA).
- *   - severityColors.Medium (#ff9800) has ~3.0:1 on white — pair with a dark
- *     background or use as a background with dark text instead.
- *   - statusColors.Healthy (#2e7d32) ≈ 4.8:1 on white — passes AA.
- *   - statusColors.Down / severityColors.Critical (#d32f2f) ≈ 5.6:1 — passes AA.
- *
- * TODO: Add automated contrast-ratio checks when these tokens are consumed.
- */
+/* Status / severity / incident colors */
 export const statusColors = {
   Healthy: '#2e7d32',
   Degraded: '#ed6c02',
   Down: '#d32f2f',
+} as const;
+
+export const statusBackgroundColors = {
+  Healthy: '#e8f5e9',
+  Degraded: '#fff3e0',
+  Down: '#ffebee',
 } as const;
 
 export const severityColors = {
@@ -72,33 +66,33 @@ export const incidentStatusColors = {
   Resolved: '#2e7d32',
 } as const;
 
-/* ─── Error / feedback ─── */
+/* Error / feedback */
 export const errorColors = {
   main: '#d32f2f',
   surface: '#fef2f2',
   detailsBg: '#f8f9fa',
 } as const;
 
-/* ─── Elevation / shadows ─── */
+/* Elevation / shadows */
 export const shadow = {
   header: '0 1px 3px rgba(0,0,0,0.24), 0 4px 12px rgba(0,0,0,0.16)',
   card: '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
   subtle: '0 1px 2px rgba(0,0,0,0.04)',
 } as const;
 
-/* ─── Gradients ─── */
+/* Gradients */
 export const gradient = {
   header: `linear-gradient(135deg, ${palette.primary.dark} 0%, ${palette.primary.main} 50%, ${palette.primary.surface} 100%)`,
 } as const;
 
-/* ─── Border radii (numbers for theme, use `${radius.md}px` where CSS strings needed) ─── */
+/* Border radii (numbers for theme, use `${radius.md}px` where CSS strings needed) */
 export const radius = {
   sm: 6,
   md: 8,
   lg: 10,
 } as const;
 
-/* ─── Sizing ─── */
+/* Sizing */
 export const sizing = {
   controlHeight: 36,
   headerMinHeight: { xs: 56, sm: 64 },
