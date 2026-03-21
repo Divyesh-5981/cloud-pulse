@@ -3,7 +3,7 @@ import { type ReactNode, useMemo } from 'react';
 import { ROLE_PERMISSIONS } from '@/config/roles.config';
 import { CURRENT_MOCK_USER } from '@/graphql/mock/users';
 
-import { AuthContext } from './auth-context';
+import { AuthContext } from './AuthContext';
 
 interface AuthProviderProps {
   children: ReactNode;

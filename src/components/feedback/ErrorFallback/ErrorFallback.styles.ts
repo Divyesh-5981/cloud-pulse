@@ -1,6 +1,6 @@
 import { type SxProps, type Theme } from '@mui/material/styles';
 
-import { errorColors, palette, radius, shadow } from '@/app/tokens';
+import { errorColors, palette, radius, shadow } from '@/shared/tokens';
 
 export const styles = {
   root: {

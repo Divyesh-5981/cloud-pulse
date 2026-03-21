@@ -7,7 +7,7 @@ import {
   radius,
   shadow,
   sizing,
-} from '@/app/tokens';
+} from '@/shared/tokens';
 
 export const styles = {
   appBar: {

@@ -14,7 +14,7 @@ interface TabContainerProps {
   children: ReactNode;
 }
 
-export function TabContainer({
+export default function TabContainer({
   visibleTabs,
   activeTab,
   onTabChange,

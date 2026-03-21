@@ -1,10 +1,3 @@
-/**
- * Header — top bar with app title, user info, and refresh controls.
- *
- * The role dropdown is gone. Instead we show the authenticated user's
- * avatar + name + role badge. This is what a real app looks like —
- * the user's identity comes from auth, not a picker.
- */
 import CloudIcon from '@mui/icons-material/Cloud';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AppBar from '@mui/material/AppBar';
@@ -18,8 +11,8 @@ import Switch from '@mui/material/Switch';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-import { APP_TITLE } from '@/app/tokens';
 import { useAuth } from '@/hooks/useAuth';
+import { APP_TITLE } from '@/shared/tokens';
 
 import { styles } from './Header.styles';
 
@@ -29,7 +22,7 @@ interface HeaderProps {
   onManualRefresh: () => void;
 }
 
-export function Header({
+export default function Header({
   autoRefresh,
   onAutoRefreshToggle,
   onManualRefresh,
