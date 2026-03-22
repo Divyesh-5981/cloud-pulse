@@ -1,18 +1,24 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { useCallback, useState } from 'react';
+import { type ComponentType, useCallback, useState } from 'react';
 
 import Header from '@/components/layout/Header';
 import TabContainer from '@/components/layout/TabContainer';
-import { TAB_IDS } from '@/config/tabs.config';
+import { TAB_IDS, type TabId } from '@/config/tabs.config';
 import { useTabNavigation } from '@/hooks/useTabNavigation';
 
 import { styles } from './App.styles';
+import IncidentPanel from './features/incidents/components/IncidentPanel';
 import ServiceGrid from './features/services/components/ServiceGrid';
+
+const TAB_PANELS: Record<TabId, ComponentType> = {
+  [TAB_IDS.SERVICES]: ServiceGrid,
+  [TAB_IDS.INCIDENTS]: IncidentPanel,
+};
 
 function App() {
   const { visibleTabs, activeTab, onTabChange } = useTabNavigation();
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const ActivePanel = TAB_PANELS[activeTab];
 
   const handleAutoRefreshToggle = useCallback(() => {
     setAutoRefresh((prev) => !prev);
@@ -34,12 +40,7 @@ function App() {
         activeTab={activeTab}
         onTabChange={onTabChange}
       >
-        {activeTab === TAB_IDS.SERVICES && <ServiceGrid />}
-        {activeTab === TAB_IDS.INCIDENTS && (
-          <Typography color="text.secondary">
-            Incidents tab — table will go here
-          </Typography>
-        )}
+        {ActivePanel && <ActivePanel />}
       </TabContainer>
     </Box>
   );
