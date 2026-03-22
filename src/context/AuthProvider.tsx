@@ -1,7 +1,8 @@
-import { type ReactNode, useMemo } from 'react';
+import { type ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { ROLE_PERMISSIONS } from '@/config/roles.config';
-import { CURRENT_MOCK_USER } from '@/graphql/mock/users';
+import { MOCK_USERS } from '@/graphql/mock/users';
+import { type Role, ROLES } from '@/types';
 
 import { AuthContext } from './AuthContext';
 
@@ -10,16 +11,21 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const { id, name, initials, role } = CURRENT_MOCK_USER;
+  const [role, setRole] = useState<Role>(ROLES.ADMIN);
 
-  const value = useMemo(
-    () => ({
+  const handleSetRole = useCallback((newRole: Role) => {
+    setRole(newRole);
+  }, []);
+
+  const value = useMemo(() => {
+    const { id, name, initials } = MOCK_USERS[role];
+    return {
       user: { id, name, initials },
       role,
       permissions: ROLE_PERMISSIONS[role],
-    }),
-    [id, name, initials, role],
-  );
+      setRole: handleSetRole,
+    };
+  }, [role, handleSetRole]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -1,9 +1,12 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CloudOffIcon from '@mui/icons-material/CloudOff';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useMemo } from 'react';
+
+import BackgroundUpdateIndicator from '@/components/feedback/BackgroundUpdateIndicator';
 
 import { SERVICE_GRID, STATUS_LEGEND } from '../../config';
 import { useServices } from '../../hooks/useServices';
@@ -59,7 +62,8 @@ function ServiceFooter({ lastCheckedAt }: { lastCheckedAt: string }) {
 }
 
 export default function ServiceGrid() {
-  const { services, loading, error, refetch } = useServices();
+  const { services, loading, isBackgroundFetching, error, refetch } =
+    useServices();
 
   const isInitialLoad = loading && services.length === 0;
   const hasError = error && services.length === 0;
@@ -71,13 +75,26 @@ export default function ServiceGrid() {
 
   return (
     <Box>
+      <BackgroundUpdateIndicator active={isBackgroundFetching} />
       <Typography sx={styles.title}>{SERVICE_GRID.title}</Typography>
 
       {isInitialLoad && <SkeletonGrid />}
 
       {hasError && <ErrorState onRetry={refetch} />}
 
-      {!isInitialLoad && !hasError && (
+      {!isInitialLoad && !hasError && services.length === 0 && (
+        <Box sx={styles.emptyContainer}>
+          <Box sx={styles.emptyIconWrapper}>
+            <CloudOffIcon sx={styles.emptyIcon} />
+          </Box>
+          <Typography sx={styles.emptyTitle}>No Services</Typography>
+          <Typography sx={styles.emptySubtitle}>
+            There are currently no services to display.
+          </Typography>
+        </Box>
+      )}
+
+      {!isInitialLoad && !hasError && services.length > 0 && (
         <>
           <Box sx={styles.grid}>
             {services.map((service) => (

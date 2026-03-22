@@ -11,17 +11,22 @@ interface GetServicesData {
 interface UseServicesReturn {
   services: Service[];
   loading: boolean;
+  isBackgroundFetching: boolean;
   error: Error | undefined;
   refetch: () => void;
 }
 
 export function useServices(): UseServicesReturn {
-  const { data, loading, error, refetch } =
+  const { data, previousData, loading, error, refetch } =
     useQuery<GetServicesData>(GET_SERVICES);
 
+  const effectiveData = data ?? previousData;
+  const isInitialLoad = loading && !data && !previousData;
+
   return {
-    services: data?.services ?? [],
+    services: effectiveData?.services ?? [],
     loading,
+    isBackgroundFetching: loading && !isInitialLoad,
     error,
     refetch: () => void refetch(),
   };

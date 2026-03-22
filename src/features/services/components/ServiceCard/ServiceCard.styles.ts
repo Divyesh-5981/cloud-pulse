@@ -35,4 +35,10 @@ export const styles = {
     color: 'text.secondary',
     fontSize: '0.875rem',
   },
+
+  lastChecked: {
+    color: 'text.secondary',
+    fontSize: '0.8rem',
+    fontStyle: 'italic',
+  },
 } satisfies Record<string, SxProps<Theme>>;

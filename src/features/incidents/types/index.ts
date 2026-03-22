@@ -64,8 +64,12 @@ export interface PaginationConfig {
   pageSize: number;
 }
 
-export interface PaginationState {
-  page: number;
-  pageSize: number;
-  totalCount: number;
+export interface ActionConfig {
+  id: string;
+  label: string;
+  targetStatus: IncidentStatus;
+  permissionKey: 'canAcknowledge' | 'canResolve';
+  allowedFromStatuses: IncidentStatus[];
+  variant: 'outlined' | 'contained';
+  color?: 'success' | 'primary' | 'error' | 'warning' | 'info' | 'inherit';
 }

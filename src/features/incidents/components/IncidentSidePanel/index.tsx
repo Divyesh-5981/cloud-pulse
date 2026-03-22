@@ -4,13 +4,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
+
+import { useAuth } from '@/hooks/useAuth';
 
 import { UPDATE_INCIDENT_NOTES } from '../../api/queries';
-import { type Incident } from '../../types';
+import { INCIDENT_ACTIONS } from '../../config';
+import {
+  type ActionConfig,
+  type Incident,
+  type IncidentStatus,
+} from '../../types';
 import {
   getSeverityColor,
   getStatusColor,
@@ -28,14 +36,17 @@ interface IncidentSidePanelProps {
   incident: Incident | null;
   open: boolean;
   onClose: () => void;
+  onAction: (id: string, status: IncidentStatus, label: string) => void;
 }
 
 export default memo(function IncidentSidePanel({
   incident,
   open,
   onClose,
+  onAction,
 }: IncidentSidePanelProps) {
   const [mutate] = useMutation(UPDATE_INCIDENT_NOTES);
+  const { permissions } = useAuth();
 
   const incidentId = incident?.id ?? '';
 
@@ -43,6 +54,15 @@ export default memo(function IncidentSidePanel({
     (notes: string) => mutate({ variables: { id: incidentId, notes } }),
     [mutate, incidentId],
   );
+
+  const visibleActions = useMemo(() => {
+    if (!incident) return [];
+    return INCIDENT_ACTIONS.filter(
+      (action) =>
+        permissions[action.permissionKey] &&
+        action.allowedFromStatuses.includes(incident.status),
+    );
+  }, [incident, permissions]);
 
   if (!incident) return null;
 
@@ -115,10 +135,47 @@ export default memo(function IncidentSidePanel({
             onSave={handleSaveNotes}
           />
         </Box>
+
+        {visibleActions.length > 0 && (
+          <Box sx={styles.footer}>
+            {visibleActions.map((action) => (
+              <ActionButton
+                key={action.id}
+                action={action}
+                incidentId={incidentId}
+                onAction={onAction}
+              />
+            ))}
+          </Box>
+        )}
       </Box>
     </Drawer>
   );
 });
+
+interface ActionButtonProps {
+  action: ActionConfig;
+  incidentId: string;
+  onAction: (id: string, status: IncidentStatus, label: string) => void;
+}
+
+function ActionButton({ action, incidentId, onAction }: ActionButtonProps) {
+  const handleClick = useCallback(
+    () => onAction(incidentId, action.targetStatus, action.label),
+    [onAction, incidentId, action.targetStatus, action.label],
+  );
+
+  return (
+    <Button
+      variant={action.variant}
+      size="small"
+      color={action.color}
+      onClick={handleClick}
+    >
+      {action.label}
+    </Button>
+  );
+}
 
 interface DetailRowProps {
   label: string;

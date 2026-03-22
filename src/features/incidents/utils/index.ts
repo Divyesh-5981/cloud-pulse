@@ -10,11 +10,8 @@ import {
   type Severity,
 } from '../types';
 
-/* ── Formatting helpers ── */
-
 const EMPTY_PLACEHOLDER = '—';
 
-/** Safely formats an ISO date string as a relative time (e.g., "5 minutes ago"). */
 export function safeRelativeTime(isoDate: string): string {
   try {
     const date = new Date(isoDate);
@@ -25,8 +22,6 @@ export function safeRelativeTime(isoDate: string): string {
   }
 }
 
-/* ── Color helpers ── */
-
 export function getStatusColor(status: IncidentStatus): string {
   return incidentStatusColors[status] ?? 'grey';
 }
@@ -35,12 +30,12 @@ export function getSeverityColor(severity: Severity): string {
   return severityColors[severity] ?? 'grey';
 }
 
-/* ── Filter helpers ── */
+export function getServiceNames(): string[] {
+  return [...new Set(MOCK_INCIDENTS.map((inc) => inc.serviceName))].sort();
+}
 
 export function getFiltersWithServiceOptions(): FilterConfig[] {
-  const serviceNames = [
-    ...new Set(MOCK_INCIDENTS.map((inc) => inc.serviceName)),
-  ].sort();
+  const serviceNames = getServiceNames();
 
   return INCIDENT_FILTERS.map((filter) => {
     if (filter.id === 'serviceName' && filter.options.length === 0) {

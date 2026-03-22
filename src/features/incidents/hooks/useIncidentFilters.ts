@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { getDefaultFilterValues } from '../config';
 import { type FilterValues } from '../types';
@@ -11,7 +11,6 @@ interface UseIncidentFiltersReturn {
   filters: FilterValues;
   hasActiveFilters: boolean;
   setFilter: (filterId: string, values: string[]) => void;
-  removeFilterValue: (filterId: string, value: string) => void;
   clearAll: () => void;
 }
 
@@ -25,9 +24,11 @@ export function useIncidentFilters({
     [filters],
   );
 
+  const didChangeRef = useRef(false);
+
   const setFilter = useCallback(
     (filterId: string, values: string[]) => {
-      let didChange = false;
+      didChangeRef.current = false;
 
       setFilters((prev) => {
         const prevValues = prev[filterId] ?? [];
@@ -37,26 +38,13 @@ export function useIncidentFilters({
         ) {
           return prev;
         }
-        didChange = true;
+        didChangeRef.current = true;
         return { ...prev, [filterId]: values };
       });
 
-      if (didChange) {
+      if (didChangeRef.current) {
         onPageReset();
       }
-    },
-    [onPageReset],
-  );
-
-  const removeFilterValue = useCallback(
-    (filterId: string, value: string) => {
-      setFilters((prev) => {
-        const prevValues = prev[filterId] ?? [];
-        const next = prevValues.filter((v) => v !== value);
-        if (next.length === prevValues.length) return prev;
-        return { ...prev, [filterId]: next };
-      });
-      onPageReset();
     },
     [onPageReset],
   );
@@ -66,5 +54,5 @@ export function useIncidentFilters({
     onPageReset();
   }, [onPageReset]);
 
-  return { filters, hasActiveFilters, setFilter, removeFilterValue, clearAll };
+  return { filters, hasActiveFilters, setFilter, clearAll };
 }

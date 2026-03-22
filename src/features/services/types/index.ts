@@ -21,7 +21,7 @@ export interface Service {
   openIncidentCount: number;
 }
 
-export type CardFieldType = 'badge' | 'uptime' | 'incidents';
+export type CardFieldType = 'badge' | 'uptime' | 'incidents' | 'lastChecked';
 
 export interface CardFieldConfig {
   type: CardFieldType;

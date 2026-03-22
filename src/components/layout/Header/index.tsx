@@ -15,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { APP_TITLE } from '@/shared/tokens';
 
 import { styles } from './Header.styles';
+import RoleSwitcher from './RoleSwitcher';
 
 interface HeaderProps {
   autoRefresh: boolean;
@@ -27,7 +28,7 @@ export default function Header({
   onAutoRefreshToggle,
   onManualRefresh,
 }: HeaderProps) {
-  const { user, role } = useAuth();
+  const { user, role, setRole } = useAuth();
 
   return (
     <AppBar position="static" elevation={0} sx={styles.appBar}>
@@ -38,6 +39,10 @@ export default function Header({
         </Typography>
 
         <Box sx={styles.controlsGroup}>
+          <RoleSwitcher activeRole={role} onRoleChange={setRole} />
+
+          <Divider orientation="vertical" flexItem sx={styles.divider} />
+
           <Box sx={styles.userInfo}>
             <Avatar sx={styles.avatar}>{user.initials}</Avatar>
             <Box sx={styles.userText}>

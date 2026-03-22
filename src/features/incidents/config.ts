@@ -1,4 +1,5 @@
 import {
+  type ActionConfig,
   type ColumnConfig,
   type FilterConfig,
   INCIDENT_STATUS,
@@ -36,7 +37,27 @@ export const INCIDENT_FILTERS: FilterConfig[] = [
     id: 'serviceName',
     label: 'Service',
     type: 'single-select',
-    options: [], // populated at runtime from services query
+    options: [],
+  },
+];
+
+export const INCIDENT_ACTIONS: ActionConfig[] = [
+  {
+    id: 'acknowledge',
+    label: 'Acknowledge',
+    targetStatus: INCIDENT_STATUS.ACKNOWLEDGED,
+    permissionKey: 'canAcknowledge',
+    allowedFromStatuses: [INCIDENT_STATUS.OPEN],
+    variant: 'outlined',
+  },
+  {
+    id: 'resolve',
+    label: 'Resolve',
+    targetStatus: INCIDENT_STATUS.RESOLVED,
+    permissionKey: 'canResolve',
+    allowedFromStatuses: [INCIDENT_STATUS.OPEN, INCIDENT_STATUS.ACKNOWLEDGED],
+    variant: 'contained',
+    color: 'success',
   },
 ];
 

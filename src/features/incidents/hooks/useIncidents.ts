@@ -30,6 +30,7 @@ interface UseIncidentsReturn {
   totalCount: number;
   loading: boolean;
   isInitialLoad: boolean;
+  isBackgroundFetching: boolean;
   error: Error | undefined;
   refetch: () => void;
 }
@@ -61,6 +62,7 @@ export function useIncidents({
     totalCount: effectiveData?.incidents.totalCount ?? 0,
     loading,
     isInitialLoad,
+    isBackgroundFetching: loading && !isInitialLoad,
     error,
     refetch: () => void refetch(),
   };

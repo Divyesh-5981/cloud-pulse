@@ -7,6 +7,21 @@ export const styles = {
     gap: 2,
   },
 
+  toolbar: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 2,
+    flexWrap: 'wrap',
+  },
+
+  newIncidentButton: {
+    textTransform: 'none',
+    fontWeight: 600,
+    whiteSpace: 'nowrap',
+    flexShrink: 0,
+  },
+
   errorContainer: {
     display: 'flex',
     flexDirection: 'column',

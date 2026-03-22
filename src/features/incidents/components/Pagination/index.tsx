@@ -3,7 +3,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 import { styles } from './Pagination.styles';
 
@@ -20,6 +20,16 @@ export default memo(function Pagination({
   totalCount,
   onPageChange,
 }: PaginationProps) {
+  const goToPrev = useCallback(
+    () => onPageChange(page - 1),
+    [onPageChange, page],
+  );
+
+  const goToNext = useCallback(
+    () => onPageChange(page + 1),
+    [onPageChange, page],
+  );
+
   if (totalCount === 0) return null;
 
   const totalPages = Math.ceil(totalCount / pageSize);
@@ -39,7 +49,7 @@ export default memo(function Pagination({
         <IconButton
           size="small"
           disabled={isFirstPage}
-          onClick={() => onPageChange(page - 1)}
+          onClick={goToPrev}
           aria-label="Previous page"
         >
           <ChevronLeftIcon fontSize="small" />
@@ -52,7 +62,7 @@ export default memo(function Pagination({
         <IconButton
           size="small"
           disabled={isLastPage}
-          onClick={() => onPageChange(page + 1)}
+          onClick={goToNext}
           aria-label="Next page"
         >
           <ChevronRightIcon fontSize="small" />

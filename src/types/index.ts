@@ -21,4 +21,5 @@ export interface AuthContextValue {
   };
   role: Role;
   permissions: RolePermissions;
+  setRole: (role: Role) => void;
 }

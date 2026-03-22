@@ -10,7 +10,7 @@ export const ROLE_PERMISSIONS: Record<Role, RolePermissions> = {
   [ROLES.OPERATOR]: {
     canViewIncidents: true,
     canAcknowledge: true,
-    canResolve: true,
+    canResolve: false,
     canCreateIncident: false,
   },
   [ROLES.VIEWER]: {

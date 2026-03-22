@@ -1,4 +1,4 @@
-import { type Incident } from '../types';
+import { type Incident, INCIDENT_STATUS, type Severity } from '../types';
 import { MOCK_INCIDENTS } from './mock-data';
 
 type ResolverFn = (variables: Record<string, unknown>) => unknown;
@@ -38,6 +38,16 @@ function paginate(
   return items.slice(start, start + pageSize);
 }
 
+/* ── ID generation helper ── */
+
+function nextIncidentId(): string {
+  const maxNum = MOCK_INCIDENTS.reduce((max, inc) => {
+    const num = parseInt(inc.id.replace('INC-', ''), 10);
+    return num > max ? num : max;
+  }, 0);
+  return `INC-${maxNum + 1}`;
+}
+
 /* ── Resolver map ── */
 
 export const incidentMockResolvers: Record<string, ResolverFn> = {
@@ -64,7 +74,6 @@ export const incidentMockResolvers: Record<string, ResolverFn> = {
       throw new Error(`Incident "${id}" not found`);
     }
 
-    // Mutate in-memory so reopening the panel shows persisted notes
     incident.notes = notes;
     incident.updatedAt = new Date().toISOString();
 
@@ -75,5 +84,46 @@ export const incidentMockResolvers: Record<string, ResolverFn> = {
         updatedAt: incident.updatedAt,
       },
     };
+  },
+
+  UpdateIncidentStatus: (variables) => {
+    const id = variables.id as string;
+    const status = variables.status as string;
+
+    const incident = MOCK_INCIDENTS.find((inc) => inc.id === id);
+    if (!incident) {
+      throw new Error(`Incident "${id}" not found`);
+    }
+
+    incident.status = status as Incident['status'];
+    incident.updatedAt = new Date().toISOString();
+
+    return {
+      updateIncidentStatus: {
+        id: incident.id,
+        status: incident.status,
+        updatedAt: incident.updatedAt,
+      },
+    };
+  },
+
+  CreateIncident: (variables) => {
+    const now = new Date().toISOString();
+    const newIncident: Incident = {
+      id: nextIncidentId(),
+      title: variables.title as string,
+      description: variables.description as string,
+      serviceName: variables.serviceName as string,
+      severity: variables.severity as Severity,
+      status: INCIDENT_STATUS.OPEN,
+      assignee: variables.assignee as string,
+      createdAt: now,
+      updatedAt: now,
+      notes: '',
+    };
+
+    MOCK_INCIDENTS.unshift(newIncident);
+
+    return { createIncident: newIncident };
   },
 };

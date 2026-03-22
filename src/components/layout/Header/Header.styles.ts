@@ -63,6 +63,7 @@ export const styles = {
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: 0.25,
+    minWidth: 100,
   },
 
   userName: {
@@ -151,6 +152,37 @@ export const styles = {
     '&:hover': {
       borderColor: overlay.white.medium,
       bgcolor: overlay.white.faint,
+    },
+  },
+} satisfies Record<string, SxProps<Theme>>;
+
+export const roleSwitcherStyles = {
+  group: {
+    bgcolor: overlay.white.faint,
+    borderRadius: `${radius.md}px`,
+    p: '3px',
+    gap: '2px',
+    '& .MuiToggleButtonGroup-grouped': {
+      border: 'none',
+      borderRadius: `${radius.sm}px`,
+      color: overlay.white.medium,
+      fontSize: '0.7rem',
+      fontWeight: 600,
+      px: 1.25,
+      py: 0.25,
+      textTransform: 'none',
+      lineHeight: 1.4,
+      minWidth: 0,
+      '&.Mui-selected': {
+        bgcolor: overlay.white.faint,
+        color: overlay.white.high,
+      },
+      '&.Mui-selected:hover': {
+        bgcolor: overlay.white.faint,
+      },
+      '&:hover': {
+        bgcolor: 'rgba(255,255,255,0.06)',
+      },
     },
   },
 } satisfies Record<string, SxProps<Theme>>;

@@ -75,4 +75,40 @@ export const styles = {
   errorText: {
     color: 'text.secondary',
   },
+
+  emptyContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 2,
+    py: 8,
+    px: 3,
+  },
+
+  emptyIconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 80,
+    height: 80,
+    borderRadius: '50%',
+    bgcolor: 'grey.100',
+    mb: 1,
+  },
+
+  emptyIcon: {
+    fontSize: 40,
+    color: 'text.disabled',
+  },
+
+  emptyTitle: {
+    fontSize: '1.15rem',
+    fontWeight: 700,
+    color: 'text.primary',
+  },
+
+  emptySubtitle: {
+    fontSize: '0.9rem',
+    color: 'text.secondary',
+  },
 } satisfies Record<string, SxProps<Theme>>;

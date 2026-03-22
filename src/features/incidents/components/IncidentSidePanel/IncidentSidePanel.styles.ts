@@ -138,6 +138,16 @@ export const styles = {
     color: 'text.secondary',
     lineHeight: 1.6,
   },
+
+  footer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1.5,
+    px: 3,
+    py: 2,
+    borderTop: `1px solid ${palette.border.light}`,
+    flexShrink: 0,
+  },
 } satisfies Record<string, SxProps<Theme>>;
 
 export function statusDotSx(color: string): SxProps<Theme> {

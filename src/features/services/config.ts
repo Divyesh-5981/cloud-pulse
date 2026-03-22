@@ -19,5 +19,6 @@ export const SERVICE_GRID = {
 export const SERVICE_CARD_FIELDS: CardFieldConfig[] = [
   { type: 'badge' },
   { type: 'uptime' },
+  { type: 'lastChecked' },
   { type: 'incidents' },
 ];

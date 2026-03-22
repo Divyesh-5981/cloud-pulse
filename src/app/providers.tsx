@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import ErrorFallback from '@/components/feedback/ErrorFallback';
 import { AuthProvider } from '@/context/AuthProvider';
+import { SnackbarProvider } from '@/context/SnackbarProvider';
 import client from '@/graphql/client';
 
 import theme from './theme';
@@ -21,9 +22,11 @@ export function Providers({ children }: ProvidersProps) {
         <CssBaseline />
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <AuthProvider>
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              {children}
-            </ErrorBoundary>
+            <SnackbarProvider>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                {children}
+              </ErrorBoundary>
+            </SnackbarProvider>
           </AuthProvider>
         </ErrorBoundary>
       </ThemeProvider>

@@ -2,13 +2,6 @@ import { createTheme } from '@mui/material/styles';
 
 import { palette, radius, shadow } from '@/shared/tokens';
 
-export {
-  incidentStatusColors,
-  severityColors,
-  statusBackgroundColors,
-  statusColors,
-} from '@/shared/tokens';
-
 const theme = createTheme({
   palette: {
     primary: {
