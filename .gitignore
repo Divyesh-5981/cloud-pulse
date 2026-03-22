@@ -23,9 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# Reference docs (local only, not committed)
-ARCHITECTURE.md
-BUILD_ORDER.md
-CHECKLIST.md
-COMMITMENT.md
-REQUIREMENTS.md
